@@ -107,12 +107,13 @@ static const CGFloat MAX_TRIGGER_OFFSET = 100.0;
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
-    CGRect rect  = PPScreenBounds();
-    rect.size.height -= PPStatusBarHeight();
+    CGRect rect = PPScreenBounds();
+    rect.size.height -= PPSystemVersionGreaterOrEqualThan(7.0) ? 0.0: PPStatusBarHeight();
+    
     self.view = PP_AUTORELEASE([[UIView alloc] initWithFrame:rect]);
-    self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    self.view.clipsToBounds = YES;
+    self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight; self.view.clipsToBounds = YES;
     self.view.autoresizesSubviews = YES;
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -1460,6 +1461,11 @@ static const CGFloat MAX_TRIGGER_OFFSET = 100.0;
     [super dealloc];
 #endif
 }
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
 
 @end
 
