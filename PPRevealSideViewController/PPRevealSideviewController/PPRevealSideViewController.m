@@ -271,7 +271,7 @@ static const CGFloat MAX_TRIGGER_OFFSET = 100.0;
     // replace the view since IB add some offsets with the status bar if enabled
     controller.view.frame = [self getSideViewFrameFromRootFrame:rootFrame
                                                    andDirection:direction
-                                        alreadyFullScreenLayout:controller.wantsFullScreenLayout];
+                                        alreadyFullScreenLayout:controller.edgesForExtendedLayout == UIRectEdgeAll];
     
     NSTimeInterval animationTime = OpenAnimationTime;
     //    if ([self canCrossOffsets]) animationTime = OpenAnimationTime;
@@ -643,7 +643,7 @@ static const CGFloat MAX_TRIGGER_OFFSET = 100.0;
                              UIViewController *openedController = [_viewControllers objectForKey:[NSNumber numberWithInteger:direction]];
                              CGRect newFrame = [self getSideViewFrameFromRootFrame:_rootViewController.view.frame
                                                                       andDirection:direction
-                                                           alreadyFullScreenLayout:openedController.wantsFullScreenLayout];
+                                                           alreadyFullScreenLayout:openedController.edgesForExtendedLayout == UIRectEdgeAll];
                              openedController.view.frame = newFrame;
                              
                              CGFloat offset = [[_viewControllersOffsets objectForKey:[NSNumber numberWithInteger:direction]] floatValue];
@@ -1369,7 +1369,7 @@ static const CGFloat MAX_TRIGGER_OFFSET = 100.0;
         if (controller.view.superview) {
             controller.view.frame = [self getSideViewFrameFromRootFrame:_rootViewController.view.frame
                                                            andDirection:[key intValue]
-                                                alreadyFullScreenLayout:controller.wantsFullScreenLayout];
+                                                alreadyFullScreenLayout:controller.edgesForExtendedLayout == UIRectEdgeAll];
             if (!PPSystemVersionGreaterOrEqualThan(5.0)) [controller willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
         }
     }
